@@ -15,9 +15,9 @@
 1. Move the `*.cc` file in `scratch` folder in ns-3.35
 2. Now from the ns-3.35 folder you can run the programs using
 
-    ./waf --run scratch/<ProgramName>.cc
-
-    This command runs the program and also generates a `<ProgramName.xml>` file which then used in the NetAnim.
+		./waf --run scratch/ProgramName.cc
+	
+	This command runs the program and also generates a `<ProgramName.xml>` file which then used in the NetAnim.
 
 ## NetAnim
 1. Now move to the netanim-3.108
@@ -33,10 +33,11 @@ ns-allinone-3.35
 │
 └───ns-3.35
 │   │   ExposedTerminal.xml // Generated file
-|   |   HiddenTerminal.xml  // Generated file
-|   |
+│   │   HiddenTerminal.xml  // Generated file
+│   │   waf
+│   │
 │   └───scratch
-|       |   ExposedTerminal.cc
+│       │   ExposedTerminal.cc
 │       │   HiddenTerminal.cc
 │   
 └───netanim-3.108
