@@ -40,7 +40,7 @@ void hiddenTerminal(bool enableRtsCts)
   mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
   mobility.Install(adhoc);
 
-	// Propagation Loss Matrix with 200 dB default loss and a set symmetric loss 0 <-> 1 to 50 dB
+  // Propagation Loss Matrix with 200 dB default loss and a set symmetric loss 0 <-> 1 to 50 dB
   Ptr<MatrixPropagationLossModel> lossModel = CreateObject<MatrixPropagationLossModel>();
   lossModel->SetDefaultLoss(200);
   lossModel->SetLoss(network1.Get(0)->GetObject<MobilityModel>(), network1.Get(1)->GetObject<MobilityModel>(), 50);
@@ -48,7 +48,7 @@ void hiddenTerminal(bool enableRtsCts)
   lossModel2->SetDefaultLoss(200);
   lossModel2->SetLoss(network2.Get(1)->GetObject<MobilityModel>(), network2.Get(0)->GetObject<MobilityModel>(), 50);
 
-	// WiFi Communication channel setup
+  // WiFi Communication channel setup
   Ptr<YansWifiChannel> wifiChannel = CreateObject<YansWifiChannel>();
   wifiChannel->SetPropagationLossModel(lossModel);
   wifiChannel->SetPropagationDelayModel(CreateObject<ConstantSpeedPropagationDelayModel>());
@@ -57,7 +57,7 @@ void hiddenTerminal(bool enableRtsCts)
   wifiChannel2->SetPropagationLossModel(lossModel2);
   wifiChannel2->SetPropagationDelayModel(CreateObject<ConstantSpeedPropagationDelayModel>());
 
-	// Wireless devices installation
+  // Wireless devices installation
   WifiHelper wifi2;
   wifi2.SetStandard(WIFI_STANDARD_80211b);
   wifi2.SetRemoteStationManager("ns3::ConstantRateWifiManager",
@@ -171,7 +171,7 @@ void hiddenTerminal(bool enableRtsCts)
   mobility3.SetMobilityModel("ns3::ConstantPositionMobilityModel");
   mobility3.Install(wifiApNode3);
 
-	// TCP/IP stack setup and IP addresses assign to each device
+  // TCP/IP stack setup and IP addresses assign to each device
   InternetStackHelper stack;
   stack.Install(wifiApNode);
   stack.Install(wifiApNode2);
@@ -205,7 +205,7 @@ void hiddenTerminal(bool enableRtsCts)
   wifiInterface3 = address.Assign(staDevices3);
   address.Assign(apDevices3);
 
-	// Applications: two CBR streams each saturating the channel
+  // Applications: two CBR streams each saturating the channel
   ApplicationContainer cbrApps;
   uint16_t cbrPort = 12345;
   OnOffHelper onOffHelper("ns3::UdpSocketFactory", InetSocketAddress(Ipv4Address("10.1.3.3"), cbrPort));
@@ -221,18 +221,18 @@ void hiddenTerminal(bool enableRtsCts)
   onOffHelper.SetAttribute("StartTime", TimeValue(Seconds(1.000000)));
   cbrApps.Add(onOffHelper.Install(wifiStaNodes3.Get(0)));
 
-	// FlowMonitor on all Nodes
+  // FlowMonitor on all Nodes
   FlowMonitorHelper flowmon;
   Ptr<FlowMonitor> monitor = flowmon.InstallAll();
 
   Ipv4GlobalRoutingHelper::PopulateRoutingTables();
 
-	// Simultation time setup for 10 seconds
+  // Simultation time setup for 10 seconds
   Simulator::Stop(Seconds(10.0));
   AnimationInterface anim("HiddenTerminal.xml");
-      Simulator::Run();
+  Simulator::Run();
 
-	// Flow Statistics
+  // Flow Statistics
   monitor->CheckForLostPackets();
   Ptr<Ipv4FlowClassifier> classifier = DynamicCast<Ipv4FlowClassifier>(flowmon.GetClassifier());
   FlowMonitor::FlowStatsContainer stats = monitor->GetFlowStats();
